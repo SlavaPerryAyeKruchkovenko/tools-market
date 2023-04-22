@@ -7,6 +7,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card"
         app:cardCornerRadius="12dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,8 +17,8 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <ImageView
-            android:adjustViewBounds="true"
             android:id="@+id/card_image"
+            android:adjustViewBounds="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:src="@drawable/image_card"
@@ -25,9 +26,9 @@
         </ImageView>
 
         <LinearLayout
+            android:id="@+id/text_info"
             android:layout_gravity="bottom"
             android:background="@color/black"
-            android:id="@+id/text_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/default_padding"
