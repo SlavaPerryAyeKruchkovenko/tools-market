@@ -34,6 +34,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/default_appbar"
         android:paddingHorizontal="@dimen/default_padding"
-        tools:listitem="@layout/card_without_image" />
+        tools:listitem="@layout/round_card" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
