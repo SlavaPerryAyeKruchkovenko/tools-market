@@ -1,53 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingHorizontal="@dimen/default_padding"
-    android:paddingTop="@dimen/default_padding"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_marginTop="@dimen/default_padding"
+    app:cardCornerRadius="12dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/card"
-        app:cardCornerRadius="12dp"
+    <ImageView
+        android:id="@+id/card_image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/card_image"
+        android:src="@drawable/image_card" />
 
-        <ImageView
-            android:id="@+id/card_image"
-            android:adjustViewBounds="true"
+    <LinearLayout
+        android:id="@+id/text_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/black"
+        android:orientation="vertical"
+        android:padding="@dimen/default_padding">
+
+        <TextView
+            android:id="@+id/card_header"
+            style="@style/card_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/image_card"
-            android:contentDescription="@string/card_image">
-        </ImageView>
+            android:text="@string/header"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
-        <LinearLayout
-            android:id="@+id/text_info"
-            android:layout_gravity="bottom"
-            android:background="@color/black"
+        <TextView
+            android:id="@+id/card_info"
+            style="@style/card_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/default_padding"
-            android:orientation="vertical">
-            <TextView
-                android:id="@+id/card_header"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:text="@string/header"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/card_header"/>
-            <TextView
-                android:id="@+id/card_info"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:text="@string/card_info"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/card_info"/>
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+            android:text="@string/card_info"
+            app:layout_constraintBottom_toBottomOf="parent" />
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

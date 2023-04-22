@@ -23,6 +23,7 @@
             app:navigationIcon="@drawable/menu_24"
             app:title="Tools"
             app:titleCentered="true" />
+
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -32,6 +33,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/default_appbar"
-        tools:listitem="@layout/default_card" />
+        android:paddingHorizontal="@dimen/default_padding"
+        tools:listitem="@layout/card_without_image" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
