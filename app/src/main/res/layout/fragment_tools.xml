@@ -10,26 +10,28 @@
         android:id="@+id/default_appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:background="@color/black"
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/topAppBar"
+            style="@style/Widget.App.Toolbar.Default"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:title="Tools"
             app:navigationIcon="@drawable/menu_24"
-            app:titleCentered="true"
-            style="@style/Widget.App.Toolbar.Default"/>
+            app:title="Tools"
+            app:titleCentered="true" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="?attr/actionBarSize"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/default_appbar"
-        android:paddingBottom="?attr/actionBarSize"/>
+        tools:listitem="@layout/default_card" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
