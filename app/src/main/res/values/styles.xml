@@ -14,4 +14,7 @@
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/white</item>
     </style>
+    <style name="card_header.low" parent="card_header">
+        <item name="android:textSize">18sp</item>
+    </style>
 </resources>
