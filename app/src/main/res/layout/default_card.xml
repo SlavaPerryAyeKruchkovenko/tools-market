@@ -2,43 +2,51 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingHorizontal="@dimen/default_padding"
+    android:paddingTop="@dimen/default_padding"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <ImageView
+
+    <com.google.android.material.card.MaterialCardView
+        app:cardCornerRadius="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:paddingHorizontal="@dimen/default_padding"
-        android:paddingTop="@dimen/default_padding"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/image_card"
-        android:contentDescription="@string/card_image">
-    </ImageView>
+        app:layout_constraintBottom_toBottomOf="parent">
 
-    <LinearLayout
-        android:background="@drawable/card_info_background"
-        android:id="@+id/text_info"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:padding="@dimen/default_padding"
-        android:layout_marginHorizontal="@dimen/default_padding"
-        android:orientation="vertical">
-        <TextView
-            android:id="@+id/card_header"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:text="@string/header"
+        <ImageView
+            android:adjustViewBounds="true"
+            android:id="@+id/card_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/card_header"/>
-        <TextView
-            android:id="@+id/card_info"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:text="@string/card_info"
+            android:src="@drawable/image_card"
+            android:contentDescription="@string/card_image">
+        </ImageView>
+
+        <LinearLayout
+            android:layout_gravity="bottom"
+            android:background="@color/black"
+            android:id="@+id/text_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/card_info"/>
-    </LinearLayout>
+            android:padding="@dimen/default_padding"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/card_header"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:text="@string/header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/card_header"/>
+            <TextView
+                android:id="@+id/card_info"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:text="@string/card_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/card_info"/>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
