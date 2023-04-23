@@ -4,6 +4,8 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.toolsmarket.models.Tool
+import com.example.toolsmarket.networks.INetworkSource
+import com.example.toolsmarket.networks.MockNetworkSource
 import com.example.toolsmarket.repository.ToolsApi
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -14,22 +16,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class ToolsFragmentViewModel : ViewModel() {
     val liveData = MutableLiveData<List<Tool>>()
-    private val retrofit = Retrofit.Builder()
-        .baseUrl("https://develtop.ru/study/")
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
-    private val toolsApi = retrofit.create(ToolsApi::class.java)
-
+    private val network: INetworkSource = MockNetworkSource()
     public fun init() {
-        GlobalScope.launch {
-            val response = toolsApi.getTools()
-
-            if (response.isSuccessful) {
-                val responses = response.body()
-                val tools = responses?.let { Tool.getTools(it) }
-                liveData.postValue(tools)
-            }
-        }
-
+        network.sendData(liveData);
     }
 }

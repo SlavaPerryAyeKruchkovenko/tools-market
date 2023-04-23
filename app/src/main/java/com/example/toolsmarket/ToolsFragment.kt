@@ -36,17 +36,16 @@ class ToolsFragment : Fragment() {
     }
 
     private fun init() {
-        val observer = Observer<List<Tool>> { newValue ->
-            Log.d("value", newValue.toString())
-            toolsAdapter.submitList(newValue)
-        }
-        viewModel.liveData.observe(viewLifecycleOwner, observer)
-
         binding.tools.layoutManager = LinearLayoutManager(
             context,
             LinearLayoutManager.VERTICAL, false
         )
         binding.tools.adapter = toolsAdapter
+        val observer = Observer<List<Tool>> { newValue ->
+            Log.d("el",newValue.toString())
+            toolsAdapter.submitList(newValue)
+        }
+        viewModel.liveData.observe(viewLifecycleOwner, observer)
     }
 
     override fun onDestroyView() {

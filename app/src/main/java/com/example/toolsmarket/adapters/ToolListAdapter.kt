@@ -1,6 +1,7 @@
 package com.example.toolsmarket.adapters
 
 import android.graphics.BitmapFactory
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -15,13 +16,14 @@ import java.io.IOException
 
 class ToolListAdapter : ListAdapter<Tool, RecyclerView.ViewHolder>(MyDiffCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        Log.d("element3",viewType.toString())
         return when (viewType) {
             0 -> {
                 val binding = DefaultCardBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent, false
                 )
-                DefaultCardWithImageHolder(binding)
+                DefaultCardWithBackgroundHolder(binding)
             }
             R.layout.default_card -> {
                 val binding = DefaultCardBinding.inflate(
@@ -49,6 +51,7 @@ class ToolListAdapter : ListAdapter<Tool, RecyclerView.ViewHolder>(MyDiffCallbac
     }
 
     override fun getItemViewType(position: Int): Int {
+        Log.d("element",getItem(position).toString())
         return when (getItem(position)) {
             is Tool.DefaultTool -> R.layout.default_card
             is Tool.DefaultToolBackground -> 0
@@ -59,8 +62,9 @@ class ToolListAdapter : ListAdapter<Tool, RecyclerView.ViewHolder>(MyDiffCallbac
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        Log.d("element2",getItem(position).toString())
         when (holder.itemViewType) {
-            0 -> (holder as DefaultCardWithImageHolder).bind(getItem(position) as Tool.DefaultToolBackground)
+            0 -> (holder as DefaultCardWithBackgroundHolder).bind(getItem(position) as Tool.DefaultToolBackground)
             R.layout.default_card -> (holder as DefaultCardHolder).bind(getItem(position) as Tool.DefaultTool)
             R.layout.card_without_image -> (holder as CardWithoutImageHolder).bind(getItem(position) as Tool.ToolWithoutImage)
             R.layout.round_card -> (holder as RoundCardHolder).bind(getItem(position) as Tool.RoundTool)
@@ -83,7 +87,7 @@ class ToolListAdapter : ListAdapter<Tool, RecyclerView.ViewHolder>(MyDiffCallbac
         }
     }
 
-    inner class DefaultCardWithImageHolder(private val binding: DefaultCardBinding) :
+    inner class DefaultCardWithBackgroundHolder(private val binding: DefaultCardBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(tool: Tool.DefaultToolBackground) = with(binding) {
             try {
@@ -127,11 +131,11 @@ class ToolListAdapter : ListAdapter<Tool, RecyclerView.ViewHolder>(MyDiffCallbac
     class MyDiffCallback : DiffUtil.ItemCallback<Tool>() {
 
         override fun areItemsTheSame(oldItem: Tool, newItem: Tool): Boolean {
-            return oldItem == newItem
+            return oldItem.title == newItem.title
         }
 
         override fun areContentsTheSame(oldItem: Tool, newItem: Tool): Boolean {
-            return oldItem == newItem
+            return oldItem.title == newItem.title
         }
     }
 }
