@@ -15,7 +15,6 @@ class ApiNetworkSource: INetworkSource {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
     private val toolsApi = retrofit.create(ToolsApi::class.java)
-
     override fun sendData(liveData: MutableLiveData<List<Tool>>) {
         GlobalScope.launch {
             val response = toolsApi.getTools()

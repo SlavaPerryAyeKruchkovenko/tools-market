@@ -1,22 +1,21 @@
 package com.example.toolsmarket.adapters
 
-import android.graphics.BitmapFactory
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.net.toUri
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.example.toolsmarket.R
 import com.example.toolsmarket.models.Tool
 import com.example.toolsmarket.databinding.DefaultCardBinding
 import com.example.toolsmarket.databinding.CardWithoutImageBinding
 import com.example.toolsmarket.databinding.RoundCardBinding
-import java.io.IOException
 
 class ToolListAdapter : ListAdapter<Tool, RecyclerView.ViewHolder>(MyDiffCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        Log.d("element3",viewType.toString())
         return when (viewType) {
             0 -> {
                 val binding = DefaultCardBinding.inflate(
@@ -51,10 +50,9 @@ class ToolListAdapter : ListAdapter<Tool, RecyclerView.ViewHolder>(MyDiffCallbac
     }
 
     override fun getItemViewType(position: Int): Int {
-        Log.d("element",getItem(position).toString())
         return when (getItem(position)) {
-            is Tool.DefaultTool -> R.layout.default_card
             is Tool.DefaultToolBackground -> 0
+            is Tool.DefaultTool -> R.layout.default_card
             is Tool.ToolWithoutImage -> R.layout.card_without_image
             is Tool.RoundTool -> R.layout.round_card
             else -> Int.MAX_VALUE
@@ -62,7 +60,6 @@ class ToolListAdapter : ListAdapter<Tool, RecyclerView.ViewHolder>(MyDiffCallbac
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        Log.d("element2",getItem(position).toString())
         when (holder.itemViewType) {
             0 -> (holder as DefaultCardWithBackgroundHolder).bind(getItem(position) as Tool.DefaultToolBackground)
             R.layout.default_card -> (holder as DefaultCardHolder).bind(getItem(position) as Tool.DefaultTool)
@@ -76,11 +73,14 @@ class ToolListAdapter : ListAdapter<Tool, RecyclerView.ViewHolder>(MyDiffCallbac
         RecyclerView.ViewHolder(binding.root) {
         fun bind(tool: Tool.DefaultTool) = with(binding) {
             try {
-                val imgStream = java.net.URL(tool.img).openStream()
-                val image = BitmapFactory.decodeStream(imgStream)
-                cardImage.setImageBitmap(image)
-            } catch (ex: IOException) {
-                println(ex)
+                val img = tool.img.toUri().buildUpon().scheme("https").build()
+                cardImage.load(img){
+                    placeholder(R.drawable.loading_animation)
+                    error(R.drawable.broken_image)
+                }
+            } catch (ex: Exception) {
+                Log.e("Error", ex.message.toString())
+                ex.printStackTrace()
             }
             cardHeader.text = tool.title
             cardInfo.text = tool.subtitle
@@ -91,15 +91,17 @@ class ToolListAdapter : ListAdapter<Tool, RecyclerView.ViewHolder>(MyDiffCallbac
         RecyclerView.ViewHolder(binding.root) {
         fun bind(tool: Tool.DefaultToolBackground) = with(binding) {
             try {
-                val imgStream = java.net.URL(tool.img).openStream()
-                val image = BitmapFactory.decodeStream(imgStream)
-                cardImage.setImageBitmap(image)
-            } catch (ex: IOException) {
-                println(ex)
+                val img = tool.img.toUri().buildUpon().scheme("https").build()
+                cardImage.load(img){
+                    placeholder(R.drawable.loading_animation)
+                    error(R.drawable.broken_image)
+                }
+            } catch (ex: Exception) {
+                Log.e("Error", ex.message.toString())
+                ex.printStackTrace()
             }
             cardHeader.text = tool.title
             cardInfo.text = tool.subtitle
-            textInfo.background
         }
     }
 
@@ -118,11 +120,14 @@ class ToolListAdapter : ListAdapter<Tool, RecyclerView.ViewHolder>(MyDiffCallbac
             cardSubhead.text = tool.subtitle
             if (tool.isCircle) {
                 try {
-                    val imgStream = java.net.URL(tool.img).openStream()
-                    val image = BitmapFactory.decodeStream(imgStream)
-                    roundImage.setImageBitmap(image)
-                } catch (ex: IOException) {
-                    println(ex)
+                    val img = tool.img.toUri().buildUpon().scheme("https").build()
+                    roundImage.load(img){
+                        placeholder(R.drawable.loading_animation)
+                        error(R.drawable.broken_image)
+                    }
+                } catch (ex: Exception) {
+                    Log.e("Error", ex.message.toString())
+                    ex.printStackTrace()
                 }
             }
         }
@@ -131,11 +136,11 @@ class ToolListAdapter : ListAdapter<Tool, RecyclerView.ViewHolder>(MyDiffCallbac
     class MyDiffCallback : DiffUtil.ItemCallback<Tool>() {
 
         override fun areItemsTheSame(oldItem: Tool, newItem: Tool): Boolean {
-            return oldItem.title == newItem.title
+            return oldItem == newItem
         }
 
         override fun areContentsTheSame(oldItem: Tool, newItem: Tool): Boolean {
-            return oldItem.title == newItem.title
+            return oldItem == newItem
         }
     }
 }

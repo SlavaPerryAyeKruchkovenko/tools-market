@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.toolsmarket.adapters.ToolListAdapter
 import com.example.toolsmarket.databinding.FragmentToolsBinding
 import com.example.toolsmarket.models.Tool
+import com.example.toolsmarket.networks.MockNetworkSource
 import com.example.toolsmarket.viewModels.ToolsFragmentViewModel
 
 /**
@@ -28,24 +29,26 @@ class ToolsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentToolsBinding.inflate(inflater, container, false)
         init()
         viewModel.init()
-        return inflater.inflate(R.layout.fragment_tools, container, false)
+        return binding.root
     }
 
     private fun init() {
+        toolsAdapter.submitList(MockNetworkSource().getTools())
         binding.tools.layoutManager = LinearLayoutManager(
             context,
             LinearLayoutManager.VERTICAL, false
         )
         binding.tools.adapter = toolsAdapter
-        val observer = Observer<List<Tool>> { newValue ->
-            Log.d("el",newValue.toString())
+
+        /*val observer = Observer<List<Tool>> { newValue ->
+            Log.d("test",newValue.toString())
             toolsAdapter.submitList(newValue)
         }
-        viewModel.liveData.observe(viewLifecycleOwner, observer)
+        viewModel.liveData.observe(viewLifecycleOwner, observer)*/
     }
 
     override fun onDestroyView() {
