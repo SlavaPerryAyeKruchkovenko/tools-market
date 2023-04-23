@@ -13,7 +13,7 @@ import com.example.toolsmarket.databinding.CardWithoutImageBinding
 import com.example.toolsmarket.databinding.RoundCardBinding
 import java.io.IOException
 
-class CardAdapter : ListAdapter<Tool, RecyclerView.ViewHolder>(MyDiffCallback()) {
+class ToolListAdapter : ListAdapter<Tool, RecyclerView.ViewHolder>(MyDiffCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             0 -> {
@@ -52,7 +52,7 @@ class CardAdapter : ListAdapter<Tool, RecyclerView.ViewHolder>(MyDiffCallback())
         return when (getItem(position)) {
             is Tool.DefaultTool -> R.layout.default_card
             is Tool.DefaultToolBackground -> 0
-            is Tool.ToolWithoutBackground -> R.layout.card_without_image
+            is Tool.ToolWithoutImage -> R.layout.card_without_image
             is Tool.RoundTool -> R.layout.round_card
             else -> Int.MAX_VALUE
         }
@@ -62,7 +62,7 @@ class CardAdapter : ListAdapter<Tool, RecyclerView.ViewHolder>(MyDiffCallback())
         when (holder.itemViewType) {
             0 -> (holder as DefaultCardWithImageHolder).bind(getItem(position) as Tool.DefaultToolBackground)
             R.layout.default_card -> (holder as DefaultCardHolder).bind(getItem(position) as Tool.DefaultTool)
-            R.layout.card_without_image -> (holder as CardWithoutImageHolder).bind(getItem(position) as Tool.ToolWithoutBackground)
+            R.layout.card_without_image -> (holder as CardWithoutImageHolder).bind(getItem(position) as Tool.ToolWithoutImage)
             R.layout.round_card -> (holder as RoundCardHolder).bind(getItem(position) as Tool.RoundTool)
             else -> throw IllegalStateException("Unknown item view type ${holder.itemViewType}")
         }
@@ -101,7 +101,7 @@ class CardAdapter : ListAdapter<Tool, RecyclerView.ViewHolder>(MyDiffCallback())
 
     inner class CardWithoutImageHolder(private val binding: CardWithoutImageBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(tool: Tool.ToolWithoutBackground) = with(binding) {
+        fun bind(tool: Tool.ToolWithoutImage) = with(binding) {
             cardHeader.text = tool.title
             cardSubhead.text = tool.subtitle
         }
