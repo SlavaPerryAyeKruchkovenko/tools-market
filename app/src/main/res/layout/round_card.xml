@@ -22,6 +22,7 @@
         android:paddingVertical="@dimen/large_padding">
 
         <ImageView
+            android:id="@+id/round_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@string/round_image"
