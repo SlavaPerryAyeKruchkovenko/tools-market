@@ -37,18 +37,17 @@ class ToolsFragment : Fragment() {
     }
 
     private fun init() {
-        toolsAdapter.submitList(MockNetworkSource().getTools())
         binding.tools.layoutManager = LinearLayoutManager(
             context,
             LinearLayoutManager.VERTICAL, false
         )
         binding.tools.adapter = toolsAdapter
 
-        /*val observer = Observer<List<Tool>> { newValue ->
+        val observer = Observer<List<Tool>> { newValue ->
             Log.d("test",newValue.toString())
             toolsAdapter.submitList(newValue)
         }
-        viewModel.liveData.observe(viewLifecycleOwner, observer)*/
+        viewModel.liveData.observe(viewLifecycleOwner, observer)
     }
 
     override fun onDestroyView() {

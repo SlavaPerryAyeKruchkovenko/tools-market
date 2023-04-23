@@ -23,7 +23,7 @@
 
         <ImageView
             android:id="@+id/round_image"
-            android:layout_width="wrap_content"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:contentDescription="@string/round_image"
             android:src="@drawable/corner"
@@ -32,16 +32,17 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/round_image"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/card_header"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/header"
                 style="@style/card_header.low"/>
@@ -49,7 +50,7 @@
             <TextView
                 android:id="@+id/card_subhead"
                 android:layout_marginTop="4dp"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/subhead"
                 style="@style/card_subhead.low"/>
