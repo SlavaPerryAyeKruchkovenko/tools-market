@@ -46,7 +46,13 @@ class ToolsFragment : Fragment() {
         val observer = Observer<ResultOf<List<Tool>?>> { newValue ->
             when (newValue) {
                 is ResultOf.Success -> toolsAdapter.submitList(newValue.value)
-                is ResultOf.Failure -> toolsAdapter.submitList(listOf())
+                is ResultOf.Failure -> toolsAdapter.submitList(listOf(newValue.message?.let { x ->
+                    newValue.moreInfo?.let { y ->
+                        Tool.ErrorTool(
+                            x, y
+                        )
+                    }
+                }))
                 else -> toolsAdapter.submitList(Mock().getData())
             }
 

@@ -12,6 +12,7 @@ import com.example.toolsmarket.models.Tool
 import com.example.toolsmarket.databinding.DefaultCardBinding
 import com.example.toolsmarket.databinding.CardWithoutImageBinding
 import com.example.toolsmarket.databinding.RoundCardBinding
+import com.example.toolsmarket.databinding.ErrorCardBinding
 import com.squareup.picasso.Picasso
 
 class ToolListAdapter : ListAdapter<Tool, RecyclerView.ViewHolder>(MyDiffCallback()) {
@@ -45,6 +46,13 @@ class ToolListAdapter : ListAdapter<Tool, RecyclerView.ViewHolder>(MyDiffCallbac
                 )
                 RoundCardHolder(binding)
             }
+            R.layout.error_card -> {
+                val binding = ErrorCardBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent, false
+                )
+                ErrorCardHolder(binding)
+            }
             else -> throw IllegalStateException("Unknown view type $viewType")
         }
     }
@@ -55,6 +63,7 @@ class ToolListAdapter : ListAdapter<Tool, RecyclerView.ViewHolder>(MyDiffCallbac
             is Tool.DefaultTool -> R.layout.default_card
             is Tool.ToolWithoutImage -> R.layout.card_without_image
             is Tool.RoundTool -> R.layout.round_card
+            is Tool.ErrorTool -> R.layout.error_card
             else -> Int.MAX_VALUE
         }
     }
@@ -65,6 +74,7 @@ class ToolListAdapter : ListAdapter<Tool, RecyclerView.ViewHolder>(MyDiffCallbac
             R.layout.default_card -> (holder as DefaultCardHolder).bind(getItem(position) as Tool.DefaultTool)
             R.layout.card_without_image -> (holder as CardWithoutImageHolder).bind(getItem(position) as Tool.ToolWithoutImage)
             R.layout.round_card -> (holder as RoundCardHolder).bind(getItem(position) as Tool.RoundTool)
+            R.layout.error_card -> (holder as ErrorCardHolder).bind(getItem(position) as Tool.ErrorTool)
             else -> throw IllegalStateException("Unknown item view type ${holder.itemViewType}")
         }
     }
@@ -118,6 +128,13 @@ class ToolListAdapter : ListAdapter<Tool, RecyclerView.ViewHolder>(MyDiffCallbac
         }
     }
 
+    inner class ErrorCardHolder(private val binding: ErrorCardBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(tool: Tool.ErrorTool) = with(binding) {
+            cardHeader.text = tool.title
+            cardSubhead.text = tool.subtitle
+        }
+    }
     inner class RoundCardHolder(private val binding: RoundCardBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(tool: Tool.RoundTool) = with(binding) {
