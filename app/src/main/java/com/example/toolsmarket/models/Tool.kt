@@ -32,7 +32,7 @@ sealed class Tool(
     ) : Tool(title, subtitle)
 
     companion object Factory {
-        fun getTool(res: ToolRequest): Tool {
+        private fun getTool(res: ToolRequest): Tool {
             return if (res.img == null) {
                 ToolWithoutImage(res.title, res.subtitle)
             } else if (res.isCircle != null) {
