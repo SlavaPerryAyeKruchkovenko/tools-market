@@ -14,7 +14,7 @@ sealed class Tool(
         override val title: String = "",
         override val subtitle: String = "",
         val img: String = "",
-        val hasBag: String = ""
+        val hasBag: String = "#000000"
     ) : Tool(title, subtitle)
 
     data class ToolWithoutImage(

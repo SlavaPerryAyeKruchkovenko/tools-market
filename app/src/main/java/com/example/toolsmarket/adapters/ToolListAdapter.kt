@@ -1,18 +1,18 @@
 package com.example.toolsmarket.adapters
 
+import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.net.toUri
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
 import com.example.toolsmarket.R
 import com.example.toolsmarket.models.Tool
 import com.example.toolsmarket.databinding.DefaultCardBinding
 import com.example.toolsmarket.databinding.CardWithoutImageBinding
 import com.example.toolsmarket.databinding.RoundCardBinding
+import com.squareup.picasso.Picasso
 
 class ToolListAdapter : ListAdapter<Tool, RecyclerView.ViewHolder>(MyDiffCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -73,11 +73,10 @@ class ToolListAdapter : ListAdapter<Tool, RecyclerView.ViewHolder>(MyDiffCallbac
         RecyclerView.ViewHolder(binding.root) {
         fun bind(tool: Tool.DefaultTool) = with(binding) {
             try {
-                val img = tool.img.toUri().buildUpon().scheme("https").build()
-                cardImage.load(img){
-                    placeholder(R.drawable.loading_animation)
-                    error(R.drawable.broken_image)
-                }
+                Picasso.get().load(tool.img)
+                    .placeholder(R.drawable.loading_animation)
+                    .error(R.drawable.broken_image)
+                    .into(cardImage)
             } catch (ex: Exception) {
                 Log.e("Error", ex.message.toString())
                 ex.printStackTrace()
@@ -91,17 +90,23 @@ class ToolListAdapter : ListAdapter<Tool, RecyclerView.ViewHolder>(MyDiffCallbac
         RecyclerView.ViewHolder(binding.root) {
         fun bind(tool: Tool.DefaultToolBackground) = with(binding) {
             try {
-                val img = tool.img.toUri().buildUpon().scheme("https").build()
-                cardImage.load(img){
-                    placeholder(R.drawable.loading_animation)
-                    error(R.drawable.broken_image)
-                }
+                Picasso.get().load(tool.img)
+                    .placeholder(R.drawable.loading_animation)
+                    .error(R.drawable.broken_image)
+                    .into(cardImage)
             } catch (ex: Exception) {
                 Log.e("Error", ex.message.toString())
                 ex.printStackTrace()
             }
             cardHeader.text = tool.title
             cardInfo.text = tool.subtitle
+            try {
+                val color = Color.parseColor(tool.hasBag)
+                textInfo.setBackgroundColor(color)
+            } catch (ex: Exception) {
+                Log.e("Error", ex.message.toString())
+                ex.printStackTrace()
+            }
         }
     }
 
@@ -120,11 +125,10 @@ class ToolListAdapter : ListAdapter<Tool, RecyclerView.ViewHolder>(MyDiffCallbac
             cardSubhead.text = tool.subtitle
             if (tool.isCircle) {
                 try {
-                    val img = tool.img.toUri().buildUpon().scheme("https").build()
-                    roundImage.load(img){
-                        placeholder(R.drawable.loading_animation)
-                        error(R.drawable.broken_image)
-                    }
+                    Picasso.get().load(tool.img)
+                        .placeholder(R.drawable.loading_animation)
+                        .error(R.drawable.broken_image)
+                        .into(roundImage)
                 } catch (ex: Exception) {
                     Log.e("Error", ex.message.toString())
                     ex.printStackTrace()

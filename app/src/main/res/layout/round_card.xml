@@ -24,9 +24,10 @@
         <ImageView
             android:id="@+id/round_image"
             android:layout_width="120dp"
+            android:adjustViewBounds="true"
             android:layout_height="wrap_content"
             android:contentDescription="@string/round_image"
-            android:src="@drawable/corner"
+            android:src="@drawable/original"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
