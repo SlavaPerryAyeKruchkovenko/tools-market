@@ -1,5 +1,7 @@
 package com.example.toolsmarket.models
 
+import com.google.gson.annotations.SerializedName
+
 sealed class Tool(
     open val title: String = "",
     open val subtitle: String = ""
@@ -30,7 +32,7 @@ sealed class Tool(
     ) : Tool(title, subtitle)
 
     companion object Factory {
-        fun getTool(res: ToolRequest): Tool{
+        fun getTool(res: ToolRequest): Tool {
             return if (res.img == null) {
                 ToolWithoutImage(res.title, res.subtitle)
             } else if (res.isCircle != null) {
@@ -41,16 +43,9 @@ sealed class Tool(
                 DefaultTool(res.title, res.subtitle, res.img)
             }
         }
-        fun getTools(responses: List<ToolRequest>): List<Tool>{
+
+        fun getTools(responses: List<ToolRequest>): List<Tool> {
             return responses.map { getTool(it) }
         }
     }
 }
-
-data class ToolRequest(
-    val title: String = "",
-    val subtitle: String = "",
-    val img: String? = null,
-    val hasBag: String? = null,
-    val isCircle: Boolean? = null
-)

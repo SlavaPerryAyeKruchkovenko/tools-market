@@ -7,5 +7,5 @@ import com.example.toolsmarket.models.ToolRequest
 import retrofit2.Response
 
 interface INetworkSource {
-    suspend fun sendData(liveData: MutableLiveData<List<Tool>>): Response<List<ToolRequest>>
+    suspend fun sendData(): Response<List<ToolRequest>>
 }
