@@ -12,7 +12,7 @@ class MockNetworkSource: INetworkSource {
         val tools = getTools()
         liveData.postValue(tools)
     }
-    public fun getTools():List<Tool>{
+    private fun getTools():List<Tool>{
         return listOf(
             Tool.ToolWithoutImage("header","gay"),
             Tool.DefaultTool("header","gay","https://img5.goodfon.ru/original/2048x2048/b/3b/devushka-kosichki-tv-series-netflix-teleserial-2022-wednesda.jpg"),
