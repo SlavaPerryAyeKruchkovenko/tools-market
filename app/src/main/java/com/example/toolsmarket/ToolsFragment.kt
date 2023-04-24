@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.toolsmarket.adapters.ToolListAdapter
 import com.example.toolsmarket.databinding.FragmentToolsBinding
@@ -13,6 +14,7 @@ import com.example.toolsmarket.models.ResultOf
 import com.example.toolsmarket.models.Tool
 import com.example.toolsmarket.repository.Mock
 import com.example.toolsmarket.viewModels.ToolsFragmentViewModel
+import javax.inject.Inject
 
 /**
  * A simple [Fragment] subclass.
@@ -21,9 +23,12 @@ import com.example.toolsmarket.viewModels.ToolsFragmentViewModel
  */
 class ToolsFragment : Fragment() {
 
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+    private lateinit var viewModel: ToolsFragmentViewModel
+
     private var _binding: FragmentToolsBinding? = null
     private val toolsAdapter = ToolListAdapter()
-    private val viewModel = ToolsFragmentViewModel()
 
     private val binding get() = _binding!!
     override fun onCreateView(
@@ -37,6 +42,9 @@ class ToolsFragment : Fragment() {
     }
 
     private fun init() {
+        (activity?.application as ToolsApp).component.inject(this)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(ToolsFragmentViewModel::class.java)
+
         binding.tools.layoutManager = LinearLayoutManager(
             context,
             LinearLayoutManager.VERTICAL, false

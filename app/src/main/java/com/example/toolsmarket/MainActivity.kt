@@ -11,18 +11,8 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
-    @Inject
-    lateinit var api: ToolsApi
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        (this.application as ToolsApp).component.inject(this)
-        lifecycleScope.launch {
-            val result = withContext(Dispatchers.IO){
-                api.getTools()
-            }
-            Log.d("Test",result.isSuccessful.toString())
-        }
     }
 }
