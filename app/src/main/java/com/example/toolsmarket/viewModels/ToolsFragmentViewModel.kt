@@ -17,13 +17,15 @@ class ToolsFragmentViewModel : ViewModel() {
     fun init() {
         viewModelScope.launch {
             val response = withContext(Dispatchers.IO) {
-                network.sendData()
+                network.getTools()
             }
             if (response.isSuccessful) {
                 val responses = response.body()
                 val tools = responses?.let { Tool.getTools(it) }
                 val result = ResultOf.Success(tools)
                 liveData.postValue(result)
+            } else {
+                liveData.postValue(ResultOf.Failure("check your internet connection", Exception()))
             }
         }
     }

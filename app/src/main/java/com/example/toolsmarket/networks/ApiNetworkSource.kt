@@ -6,7 +6,7 @@ import retrofit2.Response
 
 class ApiNetworkSource: INetworkSource {
 
-    override suspend fun sendData(): Response<List<ToolRequest>> {
+    override suspend fun getTools(): Response<List<ToolRequest>> {
         return RetrofitBuilder.toolsApi.getTools()
     }
 }
