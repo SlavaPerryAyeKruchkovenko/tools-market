@@ -3,7 +3,7 @@ package com.example.toolsmarket.repository
 import com.example.toolsmarket.models.Tool
 
 class Mock {
-    fun sendData(): List<Tool> {
+    fun getData(): List<Tool> {
         return getTools()
     }
 

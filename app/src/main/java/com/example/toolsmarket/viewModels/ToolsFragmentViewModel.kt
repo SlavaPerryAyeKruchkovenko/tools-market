@@ -8,10 +8,11 @@ import com.example.toolsmarket.networks.INetworkSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import androidx.lifecycle.viewModelScope
+import com.example.toolsmarket.models.ResultOf
 import kotlinx.coroutines.launch
 
 class ToolsFragmentViewModel : ViewModel() {
-    val liveData = MutableLiveData<List<Tool>>()
+    val liveData = MutableLiveData<ResultOf<List<Tool>?>>()
     private val network: INetworkSource = ApiNetworkSource()
     fun init() {
         viewModelScope.launch {
@@ -21,7 +22,8 @@ class ToolsFragmentViewModel : ViewModel() {
             if (response.isSuccessful) {
                 val responses = response.body()
                 val tools = responses?.let { Tool.getTools(it) }
-                liveData.postValue(tools)
+                val result = ResultOf.Success(tools)
+                liveData.postValue(result)
             }
         }
     }
