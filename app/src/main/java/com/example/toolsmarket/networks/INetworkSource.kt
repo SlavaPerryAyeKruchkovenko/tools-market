@@ -3,7 +3,9 @@ package com.example.toolsmarket.networks
 import androidx.lifecycle.MutableLiveData
 import com.example.toolsmarket.adapters.ToolListAdapter
 import com.example.toolsmarket.models.Tool
+import com.example.toolsmarket.models.ToolRequest
+import retrofit2.Response
 
 interface INetworkSource {
-    fun sendData(liveData: MutableLiveData<List<Tool>>)
+    suspend fun sendData(liveData: MutableLiveData<List<Tool>>): Response<List<ToolRequest>>
 }

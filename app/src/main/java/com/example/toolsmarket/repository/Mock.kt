@@ -1,16 +1,10 @@
-package com.example.toolsmarket.networks
+package com.example.toolsmarket.repository
 
-import androidx.lifecycle.MutableLiveData
-import com.example.toolsmarket.adapters.ToolListAdapter
 import com.example.toolsmarket.models.Tool
-import com.example.toolsmarket.repository.ToolsApi
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
-class MockNetworkSource: INetworkSource {
-    override fun sendData(liveData: MutableLiveData<List<Tool>>) {
-        val tools = getTools()
-        liveData.postValue(tools)
+class Mock {
+    fun sendData(): List<Tool> {
+        return getTools()
     }
     private fun getTools():List<Tool>{
         return listOf(
