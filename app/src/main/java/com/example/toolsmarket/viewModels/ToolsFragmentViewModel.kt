@@ -1,5 +1,6 @@
 package com.example.toolsmarket.viewModels
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.toolsmarket.models.Tool
@@ -25,7 +26,7 @@ class ToolsFragmentViewModel : ViewModel() {
                 val result = ResultOf.Success(tools)
                 liveData.postValue(result)
             } else {
-                liveData.postValue(ResultOf.Failure("check your internet connection", Exception()))
+                liveData.postValue(ResultOf.Failure("internet error", "check your internet connection"))
             }
         }
     }

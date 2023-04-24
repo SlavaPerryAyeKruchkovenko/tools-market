@@ -30,7 +30,10 @@ sealed class Tool(
         val img: String = "",
         val isCircle: Boolean = false
     ) : Tool(title, subtitle)
-
+    data class ErrorTool(
+        override val title: String = "error",
+        override val subtitle: String = "information about error",
+    ): Tool(title, subtitle)
     companion object Factory {
         private fun getTool(res: ToolRequest): Tool {
             return if (res.img == null) {
