@@ -1,17 +1,16 @@
-package com.example.toolsmarket.di
+package com.example.toolsmarket.di.modules
 
 import android.app.Application
 import android.content.Context
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.toolsmarket.di.factory.ViewModelFactory
 import com.example.toolsmarket.repository.ToolsApi
-import com.example.toolsmarket.viewModels.ToolsFragmentViewModel
-import com.example.toolsmarket.viewModels.ToolsFragmentViewModelFactory
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Provider
-import javax.inject.Singleton
 
 @Module
 class NetworkModule(private val application: Application) {
@@ -35,12 +34,12 @@ class NetworkModule(private val application: Application) {
         retrofit.create(ToolsApi::class.java)
 
     @Provides
-    fun provideMyViewModelFactory(myViewModelProvider: Provider<ToolsFragmentViewModel>): ToolsFragmentViewModelFactory {
-        return ToolsFragmentViewModelFactory(myViewModelProvider)
+    fun provideToolsFragmentViewModelFactory(viewModelMap: MutableMap<Class<out ViewModel>, @JvmSuppressWildcards Provider<ViewModel>>): ViewModelFactory {
+        return ViewModelFactory(viewModelMap)
     }
 
     @Provides
-    fun provideMyViewModel(myViewModelFactory: ToolsFragmentViewModelFactory): ViewModelProvider.Factory {
+    fun provideMyViewModel(myViewModelFactory: ViewModelFactory): ViewModelProvider.Factory {
         return myViewModelFactory
     }
 

@@ -23,8 +23,6 @@ import javax.inject.Inject
  */
 class ToolsFragment : Fragment() {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
     private lateinit var viewModel: ToolsFragmentViewModel
 
     private var _binding: FragmentToolsBinding? = null
@@ -42,8 +40,9 @@ class ToolsFragment : Fragment() {
     }
 
     private fun init() {
-        (activity?.application as ToolsApp).component.inject(this)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(ToolsFragmentViewModel::class.java)
+        val component = (activity?.application as ToolsApp).component
+        component.inject(this)
+        viewModel = component.viewModelFactory().create(ToolsFragmentViewModel::class.java)
 
         binding.tools.layoutManager = LinearLayoutManager(
             context,
