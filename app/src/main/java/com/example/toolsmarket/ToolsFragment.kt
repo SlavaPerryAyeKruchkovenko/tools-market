@@ -41,7 +41,6 @@ class ToolsFragment : Fragment() {
 
     private fun init() {
         val component = (activity?.application as ToolsApp).component
-        component.inject(this)
         viewModel = component.viewModelFactory().create(ToolsFragmentViewModel::class.java)
 
         binding.tools.layoutManager = LinearLayoutManager(

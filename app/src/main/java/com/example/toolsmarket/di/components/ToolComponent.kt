@@ -9,7 +9,5 @@ import dagger.Component
 
 @Component(modules = [NetworkModule::class,ViewModelModule::class])
 interface ToolComponent {
-    fun inject(activity: MainActivity)
-    fun inject(fragment: ToolsFragment)
     fun viewModelFactory():ViewModelFactory
 }
