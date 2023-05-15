@@ -1,4 +1,4 @@
-package com.example.toolsmarket.repository
+package com.example.toolsmarket.networks
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

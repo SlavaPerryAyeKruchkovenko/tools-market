@@ -10,6 +10,6 @@ class ToolsApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        component = DaggerToolComponent.builder().networkModule(NetworkModule(this)).build()
+        component = DaggerToolComponent.builder().appContext(this).build()
     }
 }
