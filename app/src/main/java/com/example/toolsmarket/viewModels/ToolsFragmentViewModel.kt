@@ -16,7 +16,7 @@ class ToolsFragmentViewModel @Inject constructor(private val getTools: IGetTools
     fun init() {
         viewModelScope.launch {
             val response = withContext(Dispatchers.IO) {
-                getTools.execute(GetToolsState.DEFAULT)
+                getTools(GetToolsState.DEFAULT)
             }
             if (response.isSuccessful) {
                 val responses = response.body()

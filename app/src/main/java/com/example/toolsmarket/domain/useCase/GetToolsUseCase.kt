@@ -8,8 +8,7 @@ import retrofit2.Response
 import javax.inject.Inject
 
 class GetToolsUseCase @Inject constructor(private val repository: IToolsRepository) : IGetToolsUseCase {
-    public override suspend fun execute(state:GetToolsState): Response<List<ToolRequest>> {
-
+    override suspend fun invoke(state: GetToolsState): Response<List<ToolRequest>> {
         return when(state){
             GetToolsState.DEFAULT -> repository.getTools()
             GetToolsState.LEGACY -> repository.getLegacyTools()
