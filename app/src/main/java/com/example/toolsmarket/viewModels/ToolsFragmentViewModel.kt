@@ -15,22 +15,12 @@ class ToolsFragmentViewModel @Inject constructor(private val getTools: IGetTools
 
     fun init() {
         viewModelScope.launch {
-            val response = withContext(Dispatchers.IO) {
+            val resp = withContext(Dispatchers.IO) {
                 getTools(GetToolsState.DEFAULT)
             }
-            if (response.isSuccessful) {
-                val responses = response.body()
-                val tools = responses?.let { Tool.getTools(it) }
-                val result = ResultOf.Success(tools)
-                liveData.postValue(result)
-            } else {
-                liveData.postValue(
-                    ResultOf.Failure(
-                        "internet error",
-                        "check your internet connection"
-                    )
-                )
-            }
+            val tools = resp.let { Tool.getTools(it) }
+            val result = ResultOf.Success(tools)
+            liveData.postValue(result)
         }
     }
 }

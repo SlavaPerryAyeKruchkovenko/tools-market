@@ -12,5 +12,5 @@ abstract class ViewModelModule {
     @Binds
     @IntoMap
     @ViewModelKey(ToolsFragmentViewModel::class)
-    abstract fun toolsFragmentViewModel(viewModel: ToolsFragmentViewModel): ViewModel
+    abstract fun toolsFragmentViewModel(viewModel: com.example.toolsmarket.viewModels.ToolsFragmentViewModel): ViewModel
 }

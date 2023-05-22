@@ -5,5 +5,5 @@ import com.example.toolsmarket.models.ToolRequest
 import retrofit2.Response
 
 interface IGetToolsUseCase {
-    suspend operator fun invoke(state: GetToolsState): Response<List<ToolRequest>>
+    suspend operator fun invoke(state: GetToolsState): List<ToolRequest>
 }
